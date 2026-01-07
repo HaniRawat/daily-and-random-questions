@@ -6,31 +6,33 @@ public:
 
         // answer = max(sum returned by kadane , totalSum - minimum sum subarray)
 
-        int sum = INT_MIN;
+        int maxSum = INT_MIN;
+        int sum = 0;
         int n = nums.size();
-        int temp = 0;
 
-        for(int i=0; i<n; i++){
-            temp += nums[i];
-            sum = max(sum,temp);
+        for(int i=0; i<n; i++) {
+            sum += nums[i];
+            maxSum = max(maxSum, sum);
 
-            if(temp<0)
-                temp = 0;
+            if(sum < 0) sum = 0;
         }
 
-        int total = nums[0];
-        int mini = nums[0];
+        int mini = 0;
+        int miniSum = INT_MAX, total = 0;
 
-        for(int i = 1; i<n; i++){
+        for(int i=0; i<n; i++) {
             total += nums[i];
-            nums[i] = nums[i] + min(0,nums[i-1]);
-            mini = min(mini, nums[i]);
+
+            mini += nums[i];
+            miniSum = min(miniSum, mini);
+
+            if(mini > 0)    mini = 0;
         }
 
-        if(total != mini){
-            sum = max(sum, total - mini);
-        }
-        return sum;
+        // All elements are negative
+        if(maxSum < 0) return maxSum;
+
+        return max(maxSum, total - miniSum);
         
     }
 };
