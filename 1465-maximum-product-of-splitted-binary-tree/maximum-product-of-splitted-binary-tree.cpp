@@ -11,31 +11,32 @@
  */
 class Solution {
 public:
-    long long MOD = 1e9 + 7;
+    static const int MOD = 1e9 + 7;
     long long ans = 0;
 
-    long long dfs(TreeNode* node) {
-        if(!node)   return 0;
+    long long dfs(TreeNode* root) {
+        if(!root)   return 0;
 
-        node->val += dfs(node->left) + dfs(node->right);
-        return node->val;
+        root->val += dfs(root->left) + dfs(root->right);
+        return root->val;
     }
+
     int maxProduct(TreeNode* root) {
-        long long total = dfs(root);
+        long long total = dfs(root);    
 
         queue<TreeNode*>q;
         q.push(root);
 
         while(!q.empty()) {
-            TreeNode* node = q.front();
+            TreeNode* front = q.front();
             q.pop();
 
-            if(!node)   continue;
-            long long cur = (total - node->val) * node->val;
-            ans = max(ans, cur);
+            if(!front)  continue;
 
-            if(node->left)  q.push(node->left);
-            if(node->right)  q.push(node->right);
+            ans = max(ans, front->val * (total - front->val));
+
+            if(front->left) q.push(front->left);
+            if(front->right) q.push(front->right);
         }
         return ans % MOD;
     }
