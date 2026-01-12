@@ -1,7 +1,7 @@
 class Solution {
 public:
     //diagnol moves are min(|x2 - x1| , |y2 - y1|)
-    //remaining distance -> 
+    //remaining distance -> max(horizontal distance, vertical distance)
     int minTimeToVisitAllPoints(vector<vector<int>>& points) {
         int ans = 0;
         for(int i=1; i<points.size(); i++)
