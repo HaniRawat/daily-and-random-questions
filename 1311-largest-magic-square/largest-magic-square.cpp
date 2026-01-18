@@ -26,6 +26,8 @@ public:
                     long long target = row_prefix[r][c + k] - row_prefix[r][c];
                     bool isMagic = true;
 
+                    //check all rows
+
                     for(int i=0; i<k; i++) {
                         long long curr_row_sum = row_prefix[r + i][c + k] - row_prefix[r + i][c];
 
@@ -36,6 +38,8 @@ public:
                     }
                     if(!isMagic)    continue;
 
+                    //check all cols
+
                     for(int j=0; j<k; j++) {
                         long long curr_col_sum = col_prefix[r + k][c + j] - col_prefix[r][c + j];
                         if(curr_col_sum != target) {
@@ -45,6 +49,8 @@ public:
                     }
 
                     if(!isMagic)    continue;
+
+                    //check all diagonals
 
                     long long d1 = 0, d2 = 0;
 
