@@ -5,7 +5,7 @@ public:
         int n = nums.size();
         int i=0;
         int maxLen = 0;
-
+        //finding longest subarray where nums[j] < nums[i] * k
         for(int j=0; j<n; j++) {
             while((long long)nums[j] > (long long)nums[i] * k)
                 i++;
