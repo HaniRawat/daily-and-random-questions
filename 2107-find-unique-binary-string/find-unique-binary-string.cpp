@@ -1,27 +1,39 @@
 class Solution {
 public:
-    vector<string>vec;
+    // vector<string>vec;
 
-    void solve(int n, string s) {
-        if(n == 0) {
-            vec.push_back(s);
-            return;
-        }
+    // void solve(int n, string s) {
+    //     if(n == 0) {
+    //         vec.push_back(s);
+    //         return;
+    //     }
 
-        solve(n-1, s + "0");
-        solve(n-1, s + "1");
-    }
+    //     solve(n-1, s + "0");
+    //     solve(n-1, s + "1");
+    // }
     string findDifferentBinaryString(vector<string>& nums) {
-        int n = nums[0].size();
+        //O((2^N) * N)
 
-        map<string, int>mp;
-        for(auto x : nums)  mp[x]++;
+        // int n = nums[0].size();
 
-        solve(n, "");
+        // map<string, int>mp;
+        // for(auto x : nums)  mp[x]++;
 
-        for(auto x : vec)
-            if(!mp.count(x))    return x;
+        // solve(n, "");
+
+        // for(auto x : vec)
+        //     if(!mp.count(x))    return x;
         
-        return "";
+        // return "";
+
+        //cantor's diagonalization
+
+        int n = nums.size();
+        string ans = "";
+
+        for(int i=0; i<n; i++) {
+            ans += (nums[i][i] == '0') ? '1' : '0';
+        }
+        return ans;
     }
 };
