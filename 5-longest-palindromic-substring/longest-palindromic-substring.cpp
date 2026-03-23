@@ -1,26 +1,26 @@
 class Solution {
 public:
-
-    string solve(int start, int end, string s) {
-        while(start >= 0 && end < s.length() && s[start] == s[end]) {
-            start--, end++;
-        }
-        return s.substr(start + 1, end - start - 1);
-    }
-
     string longestPalindrome(string s) {
-        int n = s.length();
-        if(n <= 1)  return s;
+        if(s.length() <= 1)
+            return s;
+        
+        auto expandFromCenter = [&] (int left, int right){
+            while(left >= 0 && right < s.length() && s[left] == s[right]){
+                left--;
+                right++;
+            }
+            return s.substr(left+1, right-left-1);
+        };
 
-        string maxStr = s.substr(0, 1);
-        for(int i=0; i<n; i++) {
-            string oddLengthString = solve(i, i, s);
-            string evenLengthString = solve(i, i+1, s);
+        string maxStr = s.substr(0,1);
 
-            if(oddLengthString.length() > maxStr.length())  maxStr = oddLengthString;
-            if(evenLengthString.length() > maxStr.length())  maxStr = evenLengthString;
+        for(int i=0; i<s.length()-1; i++){
+            string odd = expandFromCenter(i, i);
+            string even = expandFromCenter(i, i+1);
+
+            if(odd.length() > maxStr.length())  maxStr = odd;
+            if(even.length() > maxStr.length())  maxStr = even;
         }
-
         return maxStr;
     }
 };
